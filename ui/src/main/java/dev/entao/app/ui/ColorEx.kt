@@ -1,6 +1,20 @@
 package dev.entao.app.ui
 
 import android.graphics.Color
+import dev.entao.app.basic.Hex
+
+
+//0xff8800 --> "#ff8800"
+fun Int.toStringColor(): String {
+    val a = Color.alpha(this)
+    val r = Color.red(this)
+    val g = Color.green(this)
+    val b = Color.blue(this)
+    if (a == 0xff) {
+        return "#" + Hex.encodeByte(r) + Hex.encodeByte(g) + Hex.encodeByte(b)
+    }
+    return "#" + Hex.encodeByte(a) + Hex.encodeByte(r) + Hex.encodeByte(g) + Hex.encodeByte(b)
+}
 
 
 //0x80A0B0C0, Color.argb(0x80,0xA0,0xB0,0XC0)

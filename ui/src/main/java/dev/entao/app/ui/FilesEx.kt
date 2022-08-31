@@ -2,6 +2,7 @@
 
 package dev.entao.app.ui
 
+import android.content.Context
 import android.os.Build
 import android.os.StatFs
 import dev.entao.app.basic.makeTempName
@@ -9,20 +10,19 @@ import java.io.File
 import java.io.IOException
 
 
-val DocDir: File
-    get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        appContext.dataDir
-    } else {
-        appContext.filesDir
-    }
-
-
-fun DocFile(name: String): File {
-    return File(DocDir, name)
+fun DocDir(context: Context): File = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+    context.dataDir
+} else {
+    context.filesDir
 }
 
-fun DocFile(subdir: String, name: String): File {
-    val d = File(DocDir, subdir)
+
+fun DocFile(context: Context, name: String): File {
+    return File(DocDir(context), name)
+}
+
+fun DocFile(context: Context, subdir: String, name: String): File {
+    val d = File(DocDir(context), subdir)
     if (!d.exists()) {
         d.mkdir()
     }
@@ -30,14 +30,14 @@ fun DocFile(subdir: String, name: String): File {
 }
 
 
-val CacheDir: File get() = appContext.externalCacheDir ?: appContext.cacheDir
+fun CacheDir(context: Context): File = context.externalCacheDir ?: context.cacheDir
 
-fun CacheFile(name: String): File {
-    return File(CacheDir, name)
+fun CacheFile(context: Context, name: String): File {
+    return File(CacheDir(context), name)
 }
 
-fun CacheFile(subdir: String, name: String): File {
-    val d = File(CacheDir, subdir)
+fun CacheFile(context: Context, subdir: String, name: String): File {
+    val d = File(CacheDir(context), subdir)
     if (!d.exists()) {
         d.mkdir()
         d.nomedia()
@@ -45,8 +45,8 @@ fun CacheFile(subdir: String, name: String): File {
     return File(d, name)
 }
 
-fun TempFile(ext: String = "tmp"): File {
-    return CacheFile(makeTempName(ext))
+fun TempFile(context: Context, ext: String = "tmp"): File {
+    return CacheFile(context, makeTempName(ext))
 }
 
 

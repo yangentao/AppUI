@@ -2,7 +2,10 @@ package dev.entao.app.ui
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.util.DisplayMetrics
 import android.util.Size
+import androidx.annotation.Px
 import java.io.InputStream
 import kotlin.math.max
 
@@ -15,6 +18,14 @@ fun InputStream.bitmapSize(): Size = Bitmaps.sizeByStream(this)
 fun InputStream.bitmap(config: BitmapConfig?, sample: Int = 1): Bitmap? = Bitmaps.fromStream(this, config, sample)
 
 object Bitmaps {
+
+    fun line(@Px width: Int, @Px height: Int, color: Int): Bitmap {
+        val target = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        target.density = DisplayMetrics.DENSITY_HIGH
+        val canvas = Canvas(target)
+        canvas.drawColor(color)
+        return target
+    }
 
     fun sizeByStream(ins: InputStream): Size {
         val opt = ins.use {

@@ -9,14 +9,25 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.AdaptiveIconDrawable
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
 import android.os.Build
 import android.view.Gravity
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+
+val Context.density: Float get() = this.resources.displayMetrics.density
+
+fun Context.dp(value: Int): Int = (this.density * value).toInt()
+fun Context.dp(value: Float): Float = this.density * value
+fun Context.dp(value: Double): Double = this.density * value
+
+fun Context.resDrawable(resId: Int): Drawable = ResourcesCompat.getDrawable(this.resources, resId, this.theme) ?: error("NO drawable: $resId")
+fun Context.resColor(resId: Int): Int = ResourcesCompat.getColor(this.resources, resId, this.theme)
 
 
-fun Context.getAppIcon(packageName:String? = null ): Bitmap? {
+fun Context.getAppIcon(packageName: String? = null): Bitmap? {
     val pm: PackageManager = this.packageManager
     val pkg: String = packageName ?: this.packageName
     if (Build.VERSION.SDK_INT < 26) {

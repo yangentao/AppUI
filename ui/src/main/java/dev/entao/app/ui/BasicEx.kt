@@ -1,14 +1,8 @@
 package dev.entao.app.ui
 
-import android.content.Context
-import dev.entao.app.AppInst
 import java.text.Collator
 import java.util.*
-import kotlin.Comparator
 
-
-
-val appContext: Context get() = AppInst.context
 
 fun printX(vararg vs: Any?) {
     val s = vs.joinToString(" ") {

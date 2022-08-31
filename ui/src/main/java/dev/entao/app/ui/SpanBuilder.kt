@@ -2,13 +2,15 @@
 
 package dev.entao.app.ui
 
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.RectF
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.*
 import dev.entao.app.basic.PX
-import dev.entao.app.dp
 
 fun spanBuilder(block: SpanBuilder.() -> Unit): SpannableString {
     val b = SpanBuilder()
@@ -157,7 +159,7 @@ class SpanBuilder {
 }
 
 
-class RoundBackgroundSpan(var backColor: Int = Color.GRAY, var textColor: Int = Color.argb(255, 30, 30, 30), @PX var radius: Int = 4.dp) : ReplacementSpan() {
+class RoundBackgroundSpan(var backColor: Int, var textColor: Int, @PX var radius: Int) : ReplacementSpan() {
 
 
     override fun draw(

@@ -2,11 +2,11 @@
 
 package dev.entao.app.ui
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.StateListDrawable
-import dev.entao.app.resDrawable
 
 fun listColors(normal: Int? = null, block: StateIntBuilder.() -> Unit): ColorStateList {
     val b = StateIntBuilder(normal)
@@ -24,8 +24,8 @@ fun listDrawables(normal: Drawable? = null, block: StateDrawableBuilder.() -> Un
 }
 
 
-fun listResDrawables(normal: Int? = null, block: StateIntBuilder.() -> Unit): StateListDrawable {
-    return StateIntBuilder(normal).apply(block).resDrawables
+fun listResDrawables(context: Context, normal: Int? = null, block: StateIntBuilder.() -> Unit): StateListDrawable {
+    return StateIntBuilder(normal).apply(block).resDrawables(context)
 }
 
 
@@ -67,14 +67,14 @@ val StateIntBuilder.colorDrawables: StateListDrawable
         }
         return ld
     }
-val StateIntBuilder.resDrawables: StateListDrawable
-    get() {
-        val ld = StateListDrawable()
-        for (p in values) {
-            ld.addState(p.first.toIntArray(), p.second.resDrawable)
-        }
-        return ld
+
+fun StateIntBuilder.resDrawables(context: Context): StateListDrawable {
+    val ld = StateListDrawable()
+    for (p in values) {
+        ld.addState(p.first.toIntArray(), context.resDrawable(p.second))
     }
+    return ld
+}
 
 class StateBuilder<T>(var normalValue: T? = null) {
     private val items: ArrayList<Pair<List<Int>, T>> = ArrayList()

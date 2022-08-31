@@ -4,7 +4,7 @@ plugins {
 }
 ext {
     nameGroup = "dev.entao.app"
-    nameVersion = "0.7.1"
+    nameVersion = "0.7.2"
     nameAF = "ui"
     nameGithub = "AppUI"
     libDesc = 'Android Library, ui functions.'
@@ -15,13 +15,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'com.google.android.material:material:1.4.0'
 
-    api 'dev.entao.app:inst:0.7.0'
-    api 'dev.entao.app:viewbuilder:0.7.0'
-    api 'dev.entao.app:task:0.7.1'
-    api 'dev.entao.app:log:0.7.1'
-    api 'dev.entao.app:basic:0.7.0'
-    api 'dev.entao.app:sql:0.7.1'
-    api 'dev.entao.app:json:0.7.0'
-    api 'dev.entao.app:http:0.7.0'
+    api 'dev.entao.app:basic:0.7.2'
+
 }
 apply from: "libcommon.gradle"

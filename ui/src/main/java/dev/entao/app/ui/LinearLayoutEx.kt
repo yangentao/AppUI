@@ -1,10 +1,18 @@
 package dev.entao.app.ui
 
 import android.widget.LinearLayout
-import dev.entao.app.viewbuilder.Grav
 
 
-fun LinearLayout.grav(block: Grav.() -> Unit): LinearLayout {
-    Grav { g -> this.gravity = g }.apply(block)
+fun <T : LinearLayout> T.isVertical(): Boolean {
+    return this.orientation == LinearLayout.VERTICAL
+}
+
+fun <T : LinearLayout> T.horizontal(): T {
+    this.orientation = LinearLayout.HORIZONTAL
+    return this
+}
+
+fun <T : LinearLayout> T.vertical(): T {
+    this.orientation = LinearLayout.VERTICAL
     return this
 }
